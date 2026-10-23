@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+/*
+ * Tokens de diseño. Paleta tomada de la identidad del prototipo (verde, naranja, violeta).
+ * Modo oscuro: automático según el sistema, o forzado con <html data-theme="light|dark">.
+ */
+:root {
+  --background: #eef2ef;
+  --surface: #ffffff;
+  --surface-muted: #f6f8f7;
+  --foreground: #16231f;
+  --muted: #5c6b65;
+  --border: #d6dfda;
+  --primary: #157a5b;
+  --primary-foreground: #ffffff;
+  --primary-soft: #e3f2ec;
+  --danger: #b4390a;
+  --danger-foreground: #ffffff;
+  --danger-soft: #fdeee6;
+  --accent: #6d3fd1;
+  --warning: #a16207;
+  --warning-soft: #fdf6e3;
+  --ring: #157a5b;
+  --radius: 0.75rem;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #101815;
+    --surface: #18231f;
+    --surface-muted: #1d2a25;
+    --foreground: #e8f0ec;
+    --muted: #93a39c;
+    --border: #2a3a34;
+    --primary: #3fc59a;
+    --primary-foreground: #0b1411;
+    --primary-soft: #173a2e;
+    --danger: #fb923c;
+    --danger-foreground: #1a0d05;
+    --danger-soft: #3a2116;
+    --accent: #a78bfa;
+    --warning: #facc15;
+    --warning-soft: #3a3214;
+    --ring: #3fc59a;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --background: #101815;
+  --surface: #18231f;
+  --surface-muted: #1d2a25;
+  --foreground: #e8f0ec;
+  --muted: #93a39c;
+  --border: #2a3a34;
+  --primary: #3fc59a;
+  --primary-foreground: #0b1411;
+  --primary-soft: #173a2e;
+  --danger: #fb923c;
+  --danger-foreground: #1a0d05;
+  --danger-soft: #3a2116;
+  --accent: #a78bfa;
+  --warning: #facc15;
+  --warning-soft: #3a3214;
+  --ring: #3fc59a;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-danger-soft: var(--danger-soft);
+  --color-accent: var(--accent);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-ring: var(--ring);
+  --radius-lg: var(--radius);
+  --font-sans: var(--font-brand), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+}

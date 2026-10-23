@@ -1,0 +1,2 @@
+-- Datos de desarrollo local. NUNCA se aplica en staging ni producción.
+-- Los datos de prueba de cada módulo se agregan en su bloque.

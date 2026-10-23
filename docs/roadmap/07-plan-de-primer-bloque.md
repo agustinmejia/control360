@@ -84,3 +84,14 @@
 ## 6. Qué sigue
 
 Al cerrar B1 comienza **B2** (EPIC-006 a EPIC-008): autenticación por invitación, organización "Grupo Pecuario", roles y RLS con su matriz de pruebas, auditoría y numeración. Antes de iniciar B2 se necesita la respuesta a P-11 (usuarios y funciones) o la aceptación de la matriz de roles propuesta.
+
+## 7. Estado de avance (2026-10-23)
+
+| Tarea | Estado |
+|---|---|
+| T-01 a T-09, T-12 a T-19 | ✅ Hechas y verificadas localmente: lint, typecheck, 31 pruebas unitarias, 17 pruebas pgTAP, build, chequeo de secretos y 22 pruebas e2e (móvil, tablet, escritorio). |
+| T-10 | ⏳ Pendiente del propietario: crear los proyectos Supabase (staging y producción) y cargar los secretos `SUPABASE_ACCESS_TOKEN`, `SUPABASE_PROJECT_REF`, `SUPABASE_DB_PASSWORD` en los environments `staging` y `production` de GitHub. El workflow `Migraciones` ya está listo y se omite mientras falten. |
+| T-11 | ⏳ Pendiente del propietario: conectar Vercel con las variables de `.env.example`. |
+| T-20 | ⏳ Demostración en staging cuando T-10 y T-11 estén listas. |
+
+**Cambios respecto al plan:** shadcn/ui no se pudo descargar desde el entorno de desarrollo (dominio bloqueado); los componentes base se escribieron a mano con el mismo enfoque (código propio, Tailwind). El combobox con búsqueda se construirá en B3, cuando lo necesite el catálogo de productos. La bitácora de acciones (`app.audit_log`) se adelantó a B1 según `08` §8.
