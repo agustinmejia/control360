@@ -10,7 +10,10 @@ Aplicación web (PWA) de gestión operativa para Grupo Pecuario: inventario, ven
 ## Estado
 
 - **Bloque 1** (fundamentos técnicos): completo.
-- **Bloque 2** (autenticación, empresa, sucursales, usuarios, roles, RLS, bitácora): completo y probado contra Supabase local; pendiente de conectar al proyecto remoto.
+- **Bloque 2** (autenticación, empresa, sucursales, usuarios, roles, RLS, bitácora): completo.
+- **Bloque 3** (inventario: catálogo con presentaciones, precios por inventario, entradas, salidas, ajustes, traspasos, fraccionamiento, kardex, existencias): completo.
+
+Todo probado contra Supabase local; pendiente de conectar al proyecto remoto.
 
 Los módulos de negocio se agregan por bloques según el roadmap.
 

@@ -641,6 +641,11 @@ isOneToOne: false
 "inv_set_inventory_price":
 { Args: { "p_inventory": string,"p_price": number,"p_reason"?: string,"p_variant": string }; Returns: undefined
                            },
+"inv_transfer_targets":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "branch_name": string,"id": string,"name": string
+            }[]
+                           },
 "inv_void_document":
 { Args: { "p_document": string,"p_reason": string }; Returns: string
                            },

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Building2, History, Store, Users } from "lucide-react";
+import { Boxes, Building2, History, ListTree, Store, Users } from "lucide-react";
 import { NoPermission } from "@/components/layout/no-permission";
 import { PageHeader } from "@/components/ui/page-header";
 import { requirePermission } from "@/modules/access/session";
@@ -19,6 +19,18 @@ const SECTIONS = [
     label: "Sucursales",
     description: "Sucursales donde se ubican los inventarios",
     icon: Store,
+  },
+  {
+    href: "/configuracion/inventarios",
+    label: "Inventarios",
+    description: "Inventarios de cada sucursal",
+    icon: Boxes,
+  },
+  {
+    href: "/configuracion/catalogos",
+    label: "Catálogos",
+    description: "Categorías, unidades de medida y motivos",
+    icon: ListTree,
   },
   {
     href: "/configuracion/usuarios",

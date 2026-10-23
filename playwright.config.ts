@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const UI_TESTS = /(public|shell|dev-ui)\.spec\.ts/;
-const FLOW_TESTS = /(auth|settings)\.spec\.ts/;
+const FLOW_TESTS = /(auth|settings|inventory)\.spec\.ts/;
 const desktop = devices["Desktop Chrome"];
 
 const PORT = Number(process.env.E2E_PORT ?? 3100);

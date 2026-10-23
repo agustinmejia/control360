@@ -746,6 +746,24 @@ begin
 end;
 $$;
 
+/* Inventarios activos a los que se puede enviar un traspaso (incluye otras sucursales). */
+create function public.inv_transfer_targets()
+returns table (id uuid, name text, branch_name text)
+language plpgsql
+stable
+security definer
+set search_path = ''
+as $$
+begin
+  perform app.require_role('owner', 'admin', 'operator');
+  return query
+    select i.id, i.name, b.name
+      from public.inventories i join public.branches b on b.id = i.branch_id
+     where i.is_active and b.is_active
+     order by b.name, i.name;
+end;
+$$;
+
 revoke execute on function
   public.inv_post_opening(uuid, date, jsonb, text, uuid),
   public.inv_post_entry(uuid, date, uuid, jsonb, text, uuid),
@@ -753,7 +771,8 @@ revoke execute on function
   public.inv_post_adjustment(uuid, date, uuid, jsonb, text, uuid),
   public.inv_post_transfer(uuid, uuid, date, jsonb, text, uuid),
   public.inv_post_conversion(uuid, date, uuid, numeric, uuid, numeric, text, uuid),
-  public.inv_void_document(uuid, text)
+  public.inv_void_document(uuid, text),
+  public.inv_transfer_targets()
   from public, anon;
 grant execute on function
   public.inv_post_opening(uuid, date, jsonb, text, uuid),
@@ -762,7 +781,8 @@ grant execute on function
   public.inv_post_adjustment(uuid, date, uuid, jsonb, text, uuid),
   public.inv_post_transfer(uuid, uuid, date, jsonb, text, uuid),
   public.inv_post_conversion(uuid, date, uuid, numeric, uuid, numeric, text, uuid),
-  public.inv_void_document(uuid, text)
+  public.inv_void_document(uuid, text),
+  public.inv_transfer_targets()
   to authenticated;
 
 -- ── Bitácora de motivos (catálogo editable) ─────────────────────────────────

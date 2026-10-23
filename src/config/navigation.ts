@@ -48,7 +48,7 @@ export const NAV_ITEMS: NavItem[] = [
     description: "Productos, existencias, kardex y traspasos",
     icon: Package,
     block: "B3",
-    available: false,
+    available: true,
     mobile: true,
   },
   {
