@@ -287,14 +287,14 @@ Leyenda de bloque: B2 acceso · B3 inventario · B4 ventas/CxC · B5 compras/CxP
 | ID | Tema | Recomendación |
 |---|---|---|
 | D-01 | Multi-organización | `organization_id` en todo desde el inicio; UI de una sola organización en el MVP. |
-| D-02 | Alcance del producto respecto del inventario | Catálogo **por organización** con stock por inventario; cada producto se habilita en uno o más inventarios. |
+| D-02 | Alcance del producto respecto del inventario | ✅ **Aprobado:** catálogo **por organización** con stock por inventario; consulta por inventario y global. |
 | D-03 | Hosting | Vercel + Supabase Cloud (sa-east-1). |
 | D-04 | Roles MVP | owner, admin, operator, viewer. |
 | D-05 | Terceros | Tabla única `parties` con indicadores de rol. |
 | D-06 | Valoración de inventario | MVP: precio de venta vigente y último costo; costo promedio ponderado como mejora prioritaria. |
 | D-07 | Offline | Conexión obligatoria en el MVP. |
 | D-08 | Fechas pasadas | Permitidas hasta N días (configurable, propuesta 31) con verificación de saldo en fechas posteriores. |
-| D-09 | Edición vs. anulación | Documentos registrados no se editan; anulación con motivo y nuevo registro. |
+| D-09 | Edición vs. anulación | ✅ **Aprobado:** borrado lógico con motivo (estado anulado + quién/cuándo/por qué), efectos revertidos en la misma transacción; nunca borrado físico. |
 | D-10 | PDF | `@react-pdf/renderer` en servidor + vista imprimible. |
 | D-11 | Monedas | Solo bolivianos (BOB); campo `currency` en la organización para no cerrar la puerta. |
 | D-12 | Cobro asignado a venta anulada | El cobro se anula junto con la venta (MVP); saldos a favor como futuro. |

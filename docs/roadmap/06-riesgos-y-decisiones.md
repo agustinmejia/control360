@@ -113,7 +113,30 @@ Formato: alternativas → **recomendación** → ventajas / desventajas → impa
 | **B8** | P-10 | Valor provisional. |
 | **B9** | P-06, P-08, P-12 (P-07 y P-09 no bloquean) | Se entrega la versión "registro valorado + conteos" sin vínculo con inventario. |
 
-## 5. Decisiones que requieren aprobación del propietario (resumen)
+## 5. Decisiones tomadas por el propietario (2026-10-23)
+
+| # | Tema | Decisión |
+|---|---|---|
+| 1 | Alcance del MVP | **Aprobado** tal como figura en `02` §6. |
+| 2 | D-02 Catálogo e inventarios | **Aprobado (opción B):** un producto puede tener stock en varios inventarios; las existencias se consultan **por inventario y en total global**. |
+| 3 | D-09 Correcciones | **Aprobado con precisión:** no hay borrado físico. Se hace **borrado lógico** con motivo obligatorio: el registro queda guardado y marcado como anulado (quién, cuándo, por qué), deja de contar en existencias, saldos y reportes, y se puede consultar con un filtro. Sus efectos (stock, saldos) se revierten en la misma transacción. Para datos maestros (productos, clientes, inventarios), el borrado lógico es "desactivar/archivar". |
+| 4 | Corrección de cálculos H-06 y H-10 | **Pendiente de confirmar** tras la explicación con ejemplos. |
+| 5 | D-07 Conexión obligatoria en el MVP | **Aprobado.** |
+| 6 | D-03 Hosting | **Aprobado:** Supabase como backend; el propietario despliega en Vercel. B1 entrega un `.env.example` con las variables necesarias para conectar con Supabase. |
+| 7 | Preguntas de negocio | Se resuelven **en cada fase**. Las que afectan al núcleo del modelo de datos (difíciles de cambiar después) se analizan en detalle antes de B3: ver §6. |
+
+## 6. Preguntas críticas del núcleo (resolver antes de B3)
+
+| ID | Pregunta | Recomendación |
+|---|---|---|
+| N-1 | ¿Se compra en una unidad y se vende en otra (quintal → kg, caja → unidad)? | Guardar **siempre** las cantidades en una unidad base por producto desde el primer día; las presentaciones con factor de conversión pueden añadirse después sin migrar datos. |
+| N-2 | ¿El precio de venta es el mismo en todos los inventarios? | Precio base en el producto y precio opcional por inventario. |
+| N-3 | ¿Una misma venta o compra puede incluir productos de distintos inventarios? | El inventario se guarda **en cada línea y en cada movimiento** (la cabecera solo propone uno por defecto). |
+| N-4 | ¿Se permite stock negativo en algún caso? | Nunca, salvo un interruptor por inventario desactivado por defecto. |
+| N-5 | ¿Habrá más de una empresa o razón social en el sistema? | `organization_id` en todas las tablas igualmente (D-01). |
+| N-6 | ¿Cuántos días atrás se puede registrar y quién puede anular (P-14)? | 31 días; el operador anula lo propio del día y el admin, el resto. |
+
+## 7. Decisiones que requerían aprobación del propietario (resumen original)
 
 1. **Alcance del MVP** = módulo de Inventario completo (inventario, ventas, CxC, compras, CxP, reportes) + importación + PWA online; los otros cuatro módulos siguen en el prototipo hasta B8–B10.
 2. **D-02** catálogo compartido con stock por inventario.
