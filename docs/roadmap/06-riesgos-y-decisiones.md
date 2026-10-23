@@ -120,12 +120,12 @@ Formato: alternativas → **recomendación** → ventajas / desventajas → impa
 | 1 | Alcance del MVP | **Aprobado** tal como figura en `02` §6. |
 | 2 | D-02 Catálogo e inventarios | **Aprobado (opción B):** un producto puede tener stock en varios inventarios; las existencias se consultan **por inventario y en total global**. |
 | 3 | D-09 Correcciones | **Aprobado con precisión:** no hay borrado físico. Se hace **borrado lógico** con motivo obligatorio: el registro queda guardado y marcado como anulado (quién, cuándo, por qué), deja de contar en existencias, saldos y reportes, y se puede consultar con un filtro. Sus efectos (stock, saldos) se revierten en la misma transacción. Para datos maestros (productos, clientes, inventarios), el borrado lógico es "desactivar/archivar". |
-| 4 | Corrección de cálculos H-06 y H-10 | **Pendiente de confirmar** tras la explicación con ejemplos. |
+| 4 | Corrección de cálculos H-06 y H-10 | **Aprobado:** el prototipo es solo referencia funcional y de negocio, no fuente de lógica. |
 | 5 | D-07 Conexión obligatoria en el MVP | **Aprobado.** |
 | 6 | D-03 Hosting | **Aprobado:** Supabase como backend; el propietario despliega en Vercel. B1 entrega un `.env.example` con las variables necesarias para conectar con Supabase. |
 | 7 | Preguntas de negocio | Se resuelven **en cada fase**. Las que afectan al núcleo del modelo de datos (difíciles de cambiar después) se analizan en detalle antes de B3: ver §6. |
 
-## 6. Preguntas críticas del núcleo (resolver antes de B3)
+## 6. Preguntas críticas del núcleo — ✅ resueltas, ver `08-decisiones-del-nucleo.md`
 
 | ID | Pregunta | Recomendación |
 |---|---|---|

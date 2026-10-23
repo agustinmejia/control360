@@ -1,5 +1,7 @@
 # 05 · Arquitectura y modelo de datos
 
+> ⚠️ Las decisiones del núcleo aprobadas en `08-decisiones-del-nucleo.md` prevalecen sobre este documento (empresa única con sucursales sin `organization_id`, presentaciones de producto, precios por inventario, traspasos, bitácora categorizada).
+>
 > Este documento es **preliminar**. Las decisiones marcadas con `D-xx` están descritas en `06-riesgos-y-decisiones.md` con alternativas y recomendación. El esquema definitivo de cada módulo se cierra al inicio de su bloque.
 
 ## 1. Vista general

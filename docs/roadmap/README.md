@@ -11,5 +11,6 @@ Análisis del prototipo `prototipo/Control_de_inventario_1.html` y plan para con
 | [05 · Arquitectura y modelo de datos](05-arquitectura-y-modelo-de-datos.md) | Arquitectura, entidades, RLS, transacciones, PWA, despliegue, calidad |
 | [06 · Riesgos y decisiones](06-riesgos-y-decisiones.md) | Preguntas de negocio (P-xx), decisiones (D-xx), riesgos (R-xx), bloqueos |
 | [07 · Plan del primer bloque](07-plan-de-primer-bloque.md) | B1 Fundamentos: tareas, pruebas, criterios de aceptación y condiciones de inicio |
+| [08 · Decisiones del núcleo](08-decisiones-del-nucleo.md) | Decisiones aprobadas que prevalecen sobre 05/06: sucursales, presentaciones, precios, traspasos, asientos inversos, bitácora |
 
-**Estado:** propuesta pendiente de aprobación del propietario del producto (ver `06`, §5).
+**Estado:** roadmap y decisiones del núcleo aprobados (2026-10-23). Bloque 1 en desarrollo.
