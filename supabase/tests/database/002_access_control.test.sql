@@ -10,8 +10,9 @@ delete from public.user_branches;
 delete from public.profiles;
 delete from auth.identities;
 delete from auth.users;
-delete from public.branches where name <> 'Sucursal principal';
-update public.branches set is_active = true, deactivation_reason = null;
+update public.branches set is_active = true, deactivation_reason = null where name = 'Sucursal principal';
+update public.branches set is_active = false, deactivation_reason = 'Fuera de la prueba', name = 'zz ' || id
+ where name <> 'Sucursal principal';
 update public.company_settings set name = 'Grupo Pecuario';
 
 -- Identidades de prueba ---------------------------------------------------------
