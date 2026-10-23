@@ -1,0 +1,9 @@
+# Configuración del escáner de secretos (GitGuardian / ggshield).
+version: 2
+secret:
+  ignored_matches:
+    # Contraseña de los usuarios de PRUEBA que crea supabase/seed.sql solo en la base local
+    # de desarrollo y CI. La semilla nunca se aplica a staging ni a producción
+    # (`supabase db push` no la ejecuta), así que no da acceso a ningún entorno real.
+    - name: Usuarios de prueba locales (supabase/seed.sql)
+      match: Control360dev

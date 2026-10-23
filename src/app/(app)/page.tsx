@@ -1,16 +1,21 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import { ArrowRight } from "lucide-react";
-import { NAV_ITEMS } from "@/config/navigation";
+import { navItemsFor } from "@/modules/access/navigation";
+import { requireUser } from "@/modules/access/session";
 import { PageHeader } from "@/components/ui/page-header";
 import { businessToday, formatDate } from "@/lib/dates";
 
 export default async function HomePage() {
   await connection(); // la fecha de hoy se calcula en cada solicitud, no en el build
-  const modules = NAV_ITEMS.filter((i) => i.slug !== "");
+  const user = await requireUser();
+  const modules = navItemsFor(user.role).filter((i) => i.slug !== "");
   return (
     <>
-      <PageHeader title="Inicio" description={`Hoy, ${formatDate(businessToday())}`} />
+      <PageHeader
+        title={`Hola, ${user.fullName.split(" ")[0] || "bienvenido"}`}
+        description={`Hoy, ${formatDate(businessToday())}`}
+      />
       <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         {modules.map((item) => {
           const Icon = item.icon;

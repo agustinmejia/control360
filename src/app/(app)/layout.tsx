@@ -1,8 +1,16 @@
 import { AppShell } from "@/components/layout/app-shell";
+import { navItemsFor } from "@/modules/access/navigation";
+import { getCompanyName, requireUser } from "@/modules/access/session";
 
-// El nombre de la empresa se leerá de `company_settings` desde el Bloque 2.
-const COMPANY_NAME = "Grupo Pecuario";
-
-export default function AppLayout({ children }: LayoutProps<"/">) {
-  return <AppShell companyName={COMPANY_NAME}>{children}</AppShell>;
+export default async function AppLayout({ children }: LayoutProps<"/">) {
+  const [user, companyName] = await Promise.all([requireUser(), getCompanyName()]);
+  return (
+    <AppShell
+      companyName={companyName}
+      user={{ fullName: user.fullName, email: user.email, role: user.role }}
+      allowedSlugs={navItemsFor(user.role).map((item) => item.slug)}
+    >
+      {children}
+    </AppShell>
+  );
 }

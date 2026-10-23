@@ -71,6 +71,14 @@ Tablas: `products` (producto base: nombre, categoría, unidad base) y `product_v
 - Para datos que no son dinero (productos, clientes, inventarios, sucursales, usuarios) se usa **borrado lógico** (desactivar/archivar) con motivo.
 - No existe ningún `DELETE` físico disponible para usuarios.
 
+### 7.1 Fecha de las anulaciones de inventario (implementado en B3)
+
+- El documento inverso lleva la **fecha del día en que se anula**, no la del original. Así el
+  historial ya reportado no cambia y el kardex muestra el original, su anulación y el motivo.
+- Para anular, el stock **actual** debe alcanzar (no se anula una entrada cuya mercadería ya salió;
+  primero se registra la salida correspondiente o un ajuste).
+- Ventas y compras (B4/B5) se anulan desde su propio módulo, que genera el documento inverso.
+
 ## 8. Bitácora de acciones (auditoría)
 
 Tabla `audit_log` de solo inserción, que registra **toda acción** de escritura:

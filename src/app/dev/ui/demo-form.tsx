@@ -1,40 +1,23 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useActionForm } from "@/components/forms/use-action-form";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { DecimalInput, Input, Select } from "@/components/ui/input";
-import { useToast } from "@/components/ui/toast";
 import { businessToday } from "@/lib/dates";
 import { demoAction } from "./actions";
-import { demoSchema, type DemoInput } from "./schema";
+import { demoSchema } from "./schema";
 
 export function DemoForm() {
-  const toast = useToast();
-  const [pending, startTransition] = useTransition();
   const [result, setResult] = useState<string | null>(null);
-  const form = useForm<DemoInput>({
-    resolver: zodResolver(demoSchema),
+  const { form, onSubmit, pending, errors } = useActionForm({
+    schema: demoSchema,
+    action: demoAction,
     defaultValues: { product: "", price: "", date: businessToday(), unit: "unidad" },
+    successMessage: "Datos válidos (no se guardó nada).",
+    onSuccess: (data) => setResult(data.message),
   });
-  const { errors } = form.formState;
-
-  const onSubmit = form.handleSubmit((values) =>
-    startTransition(async () => {
-      const res = await demoAction(values);
-      if (res.ok) {
-        setResult(res.data.message);
-        toast.success("Datos válidos (no se guardó nada).");
-        return;
-      }
-      for (const [field, messages] of Object.entries(res.error.fieldErrors ?? {})) {
-        form.setError(field as keyof DemoInput, { message: messages[0] });
-      }
-      toast.error(res.error.message);
-    }),
-  );
 
   return (
     <form onSubmit={onSubmit} noValidate className="grid gap-4 sm:grid-cols-2">

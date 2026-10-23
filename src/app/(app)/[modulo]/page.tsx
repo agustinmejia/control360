@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { UserRound } from "lucide-react";
 import { NAV_ITEMS, findNavItem } from "@/config/navigation";
+import { navItemsFor } from "@/modules/access/navigation";
+import { requireUser } from "@/modules/access/session";
 import { ComingSoon } from "@/components/layout/coming-soon";
 import { PageHeader } from "@/components/ui/page-header";
 
@@ -21,7 +24,11 @@ export default async function ModulePlaceholder(props: PageProps<"/[modulo]">) {
   const { modulo } = await props.params;
 
   if (modulo === "mas") {
-    const others = NAV_ITEMS.filter((i) => !i.mobile);
+    const user = await requireUser();
+    const others = [
+      ...navItemsFor(user.role).filter((i) => !i.mobile),
+      { slug: "perfil", href: "/perfil", label: "Mi perfil", icon: UserRound, available: true },
+    ];
     return (
       <>
         <PageHeader title="Más módulos" />
@@ -47,6 +54,6 @@ export default async function ModulePlaceholder(props: PageProps<"/[modulo]">) {
   }
 
   const item = findNavItem(modulo);
-  if (!item) notFound();
+  if (!item || item.available) notFound();
   return <ComingSoon item={item} />;
 }

@@ -5,12 +5,14 @@ import { logger } from "@/lib/logger";
 
 /**
  * Refresca la sesión de Supabase en cada solicitud y propaga las cookies.
- * La protección de rutas por usuario se agrega en el Bloque 2 (EPIC-006).
+ * Devuelve el id del usuario autenticado (validado con la firma del JWT) o `null`.
  */
-export async function updateSession(request: NextRequest) {
+export async function updateSession(
+  request: NextRequest,
+): Promise<{ response: NextResponse; userId: string | null }> {
   let response = NextResponse.next({ request });
 
-  if (!isSupabaseConfigured()) return response;
+  if (!isSupabaseConfigured()) return { response, userId: null };
 
   const env = getPublicEnv();
   const supabase = createServerClient(
@@ -35,10 +37,25 @@ export async function updateSession(request: NextRequest) {
 
   try {
     // Debe ejecutarse antes de generar la respuesta para no perder un token refrescado.
-    await supabase.auth.getClaims();
+    const { data } = await supabase.auth.getClaims();
+    return { response, userId: data?.claims?.sub ?? null };
   } catch (error) {
     logger.warn("No se pudo verificar la sesión de Supabase", { error });
+    return { response, userId: null };
   }
+}
 
-  return response;
+/** Redirección que conserva las cookies de sesión ya refrescadas. */
+export function redirectWithCookies(
+  request: NextRequest,
+  from: NextResponse,
+  pathname: string,
+  params: Record<string, string> = {},
+) {
+  const url = request.nextUrl.clone();
+  url.pathname = pathname;
+  url.search = new URLSearchParams(params).toString();
+  const redirect = NextResponse.redirect(url);
+  from.cookies.getAll().forEach((cookie) => redirect.cookies.set(cookie));
+  return redirect;
 }

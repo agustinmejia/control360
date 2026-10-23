@@ -1,4 +1,5 @@
-import { z } from "zod";
+import { unstable_rethrow } from "next/navigation";
+import { z } from "@/lib/validation";
 import { AppError, ERROR_MESSAGES, type ErrorCode, type FieldErrors } from "@/lib/errors";
 import { logger } from "@/lib/logger";
 
@@ -36,6 +37,7 @@ export async function runAction<S extends z.ZodType, T>(
   try {
     return ok(await handler(parsed.data));
   } catch (error) {
+    unstable_rethrow(error); // redirect(), notFound(), etc. deben llegar a Next.js
     if (error instanceof AppError) return fail(error.code, error.message, error.fieldErrors);
     logger.error("Error no controlado en una acción", { error });
     return fail("UNEXPECTED");
