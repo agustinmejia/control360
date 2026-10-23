@@ -7,9 +7,9 @@
 
 | # | Condición | Responsable | Estado |
 |---|---|---|---|
-| C-1 | Documentos 01–07 revisados; decisiones del `06` §5 aprobadas o con valor provisional aceptado | Propietario | Pendiente |
-| C-2 | P-19: titular de las cuentas (GitHub, Supabase, Vercel, dominio) y forma de pago definidos | Propietario | Pendiente |
-| C-3 | D-03 hosting confirmado (recomendado: Vercel + Supabase `sa-east-1`) | Propietario + técnico | Pendiente |
+| C-1 | Documentos 01–07 revisados; decisiones del `06` §5 aprobadas o con valor provisional aceptado | Propietario | ✅ Aprobado (2026-10-23), salvo el punto 4 |
+| C-2 | P-19: titular de las cuentas (GitHub, Supabase, Vercel, dominio) y forma de pago definidos | Propietario | ✅ El propietario gestiona Vercel y Supabase |
+| C-3 | D-03 hosting confirmado (recomendado: Vercel + Supabase `sa-east-1`) | Propietario + técnico | ✅ Vercel + Supabase |
 | C-4 | Acceso de escritura al repositorio `control360` y a las cuentas para el equipo técnico | Propietario | Pendiente |
 | C-5 | Nombre de la app, logo en buena resolución (idealmente SVG o PNG ≥ 1024 px) y colores de marca | Propietario | Pendiente (se puede usar el logo embebido del prototipo provisionalmente) |
 | C-6 | Solicitud de un respaldo JSON real del prototipo (para B7, no bloquea B1) | Propietario | Pendiente |
@@ -36,7 +36,7 @@
 |---|---|---|---|---|
 | T-01 | Crear proyecto Next.js + TS estricto, fijar versión de Node y gestor de paquetes; estructura de carpetas | 002 | C-4 | XS |
 | T-02 | ESLint (next, typescript, jsx-a11y), Prettier, scripts `lint/typecheck/format`, *pre-commit* | 002 | T-01 | XS |
-| T-03 | `CONTRIBUTING.md`, `.env.example`, plantilla de PR, `docs/adr/0001…0003` | 002 | T-01 | XS |
+| T-03 | `CONTRIBUTING.md`, `.env.example` (URL y clave pública de Supabase, clave `service_role` solo de servidor, URL del sitio; documentado para Vercel), plantilla de PR, `docs/adr/0001…0003` | 002 | T-01 | XS |
 | T-04 | Vitest + primera prueba; utilidades `formatMoney`, `formatQty`, `formatDate` con pruebas (coma decimal, `Bs`, zona horaria) | 005 | T-01 | S |
 | T-05 | GitHub Actions: instalar, lint, typecheck, unit, build | 005 | T-02, T-04 | S |
 | T-06 | Supabase CLI local, `config.toml`, migración inicial, `seed.sql`, script `db:reset` | 004 | T-01 | S |
@@ -44,7 +44,7 @@
 | T-08 | Generación de tipos y verificación en CI (sin diferencias) | 004 | T-05, T-06 | XS |
 | T-09 | pgTAP configurado + prueba de humo; job de CI con `supabase db reset` + pruebas | 005 | T-05, T-06 | S |
 | T-10 | Crear proyectos Supabase staging/producción (`sa-east-1`) y secretos en GitHub/Vercel; job que aplica migraciones a staging al fusionar en `main` | 004 | C-2, C-3, T-09 | S |
-| T-11 | Proyecto Vercel conectado: previews por PR, producción en `main`, protección de rama | 005 | C-2, T-05 | XS |
+| T-11 | (Propietario) Proyecto Vercel conectado: previews por PR, producción en `main`, protección de rama | 005 | C-2, T-05 | XS |
 | T-12 | Tailwind + shadcn/ui, tokens claro/oscuro, tipografía, conmutador de tema | 003 | T-01 | S |
 | T-13 | Componentes base: botón, campo, número/moneda, fecha, select, combobox, diálogo de confirmación, toast, estados vacío/carga/error, encabezado de página, tabla ↔ tarjetas | 003 | T-12, T-04 | M |
 | T-14 | *Shell*: layout responsive con navegación inferior/lateral, rutas placeholder, 404, `error.tsx` global | 003 | T-13 | S |

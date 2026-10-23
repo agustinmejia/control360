@@ -288,11 +288,11 @@ Leyenda de bloque: B2 acceso · B3 inventario · B4 ventas/CxC · B5 compras/CxP
 |---|---|---|
 | D-01 | Multi-organización | `organization_id` en todo desde el inicio; UI de una sola organización en el MVP. |
 | D-02 | Alcance del producto respecto del inventario | ✅ **Aprobado:** catálogo **por organización** con stock por inventario; consulta por inventario y global. |
-| D-03 | Hosting | Vercel + Supabase Cloud (sa-east-1). |
+| D-03 | Hosting | ✅ **Aprobado:** Supabase + Vercel (despliegue a cargo del propietario). |
 | D-04 | Roles MVP | owner, admin, operator, viewer. |
 | D-05 | Terceros | Tabla única `parties` con indicadores de rol. |
 | D-06 | Valoración de inventario | MVP: precio de venta vigente y último costo; costo promedio ponderado como mejora prioritaria. |
-| D-07 | Offline | Conexión obligatoria en el MVP. |
+| D-07 | Offline | ✅ **Aprobado:** conexión obligatoria en el MVP. |
 | D-08 | Fechas pasadas | Permitidas hasta N días (configurable, propuesta 31) con verificación de saldo en fechas posteriores. |
 | D-09 | Edición vs. anulación | ✅ **Aprobado:** borrado lógico con motivo (estado anulado + quién/cuándo/por qué), efectos revertidos en la misma transacción; nunca borrado físico. |
 | D-10 | PDF | `@react-pdf/renderer` en servidor + vista imprimible. |

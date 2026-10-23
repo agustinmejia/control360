@@ -245,9 +245,10 @@ Una **épica** está terminada cuando todas sus historias P0 lo están, se cumpl
 
 - **Objetivo de negocio:** saber cuánto hay y cuánto vale, y explicar cada cambio.
 - **Problema:** H-07 (valoración a precio de venta).
-- **Incluye:** kardex por producto (fecha, tipo/motivo, documento de origen con enlace, entrada, salida, saldo, autor; filtros de fecha); existencias por inventario con filtros (categoría, bajo mínimo) y **dos valoraciones**: a precio de venta vigente y a último costo (D-06); verificación nocturna `stock_balances` = Σ kardex.
+- **Incluye:** kardex por producto (fecha, tipo/motivo, documento de origen con enlace, entrada, salida, saldo, autor; filtros de fecha); existencias **por inventario y globales** (suma de todos los inventarios, con desglose) con filtros (categoría, bajo mínimo) y **dos valoraciones**: a precio de venta vigente y a último costo (D-06); verificación nocturna `stock_balances` = Σ kardex.
 - **Excluye:** costo promedio ponderado y kardex valorado (mejora prioritaria, misma épica en fase 2 si D-06 lo decide).
 - **Historias:**
+  - **US-012.0** Como Propietario, quiero consultar el stock de un producto en total y desglosado por inventario.
   - **US-012.1** Como Admin, quiero ver el kardex de un producto con saldo acumulado y enlace a la venta o compra que originó cada línea.
   - **US-012.2** Como Propietario, quiero ver existencias valoradas a costo y a precio de venta, y su diferencia (margen potencial).
   - **US-012.3** Como Operador, quiero ver qué productos están bajo su stock mínimo.
