@@ -1,5 +1,7 @@
 # 03 · Roadmap por bloques
 
+> **Avance (2026-10-23):** B0 ✅ · B1 ✅ · B2 ✅ (probado contra Supabase local; falta conectar el proyecto remoto, ver `docs/despliegue.md`). Siguiente: **B3 · Inventario**, con las decisiones de `08-decisiones-del-nucleo.md`.
+
 > Estimaciones **relativas y preliminares** (XS < S < M < L < XL). No se dan fechas: dependen de disponibilidad del equipo y de las decisiones pendientes.
 > Prioridades: **P0** imprescindible para el MVP · **P1** primera ola post-MVP · **P2** posterior · **P3** futuro/exploratorio.
 

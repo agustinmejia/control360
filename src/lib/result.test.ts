@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { z } from "zod";
+import { z } from "@/lib/validation";
 import { AppError, fromPostgrestError } from "./errors";
 import { runAction } from "./result";
 
@@ -48,5 +48,13 @@ describe("fromPostgrestError", () => {
   it("traduce violaciones de unicidad y permisos", () => {
     expect(fromPostgrestError({ code: "23505" }).code).toBe("DUPLICATE");
     expect(fromPostgrestError({ code: "42501" }).code).toBe("FORBIDDEN");
+  });
+});
+
+describe("mensajes de validación", () => {
+  it("los mensajes por defecto de Zod están en español", async () => {
+    const result = await runAction(z.object({ n: z.number() }), { n: "x" }, async () => 1);
+    expect(result.ok).toBe(false);
+    if (!result.ok) expect(result.error.fieldErrors?.n?.[0]).toMatch(/inválid|esperado/i);
   });
 });

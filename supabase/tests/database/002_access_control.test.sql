@@ -4,6 +4,16 @@ set search_path = public, extensions;
 
 select plan(47);
 
+-- Estado inicial conocido, independiente de la semilla local y de otras pruebas.
+-- (Todo se revierte con el ROLLBACK final.)
+delete from public.user_branches;
+delete from public.profiles;
+delete from auth.identities;
+delete from auth.users;
+delete from public.branches where name <> 'Sucursal principal';
+update public.branches set is_active = true, deactivation_reason = null;
+update public.company_settings set name = 'Grupo Pecuario';
+
 -- Identidades de prueba ---------------------------------------------------------
 -- O = propietario (primer usuario), A = administrador, P = operador, V = consulta
 insert into auth.users (id, email, raw_user_meta_data) values

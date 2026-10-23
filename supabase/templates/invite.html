@@ -1,0 +1,13 @@
+<h2>Te invitaron a Control360</h2>
+<p>Hola{{ if .Data.full_name }} {{ .Data.full_name }}{{ end }}:</p>
+<p>
+  Fuiste invitado a usar Control360. Para activar tu cuenta, crea tu contraseña con el siguiente
+  enlace:
+</p>
+<p>
+  <a
+    href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=invite&next=/actualizar-contrasena"
+    >Crear mi contraseña</a
+  >
+</p>
+<p>Si no esperabas esta invitación, ignora este correo.</p>

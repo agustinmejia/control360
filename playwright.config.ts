@@ -1,5 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const UI_TESTS = /(public|shell|dev-ui)\.spec\.ts/;
+const FLOW_TESTS = /(auth|settings)\.spec\.ts/;
+const desktop = devices["Desktop Chrome"];
+
 const PORT = Number(process.env.E2E_PORT ?? 3100);
 const baseURL = process.env.E2E_BASE_URL ?? `http://localhost:${PORT}`;
 
@@ -21,14 +25,27 @@ export default defineConfig({
       : {},
   },
   projects: [
-    { name: "movil", use: { ...devices["Pixel 7"], viewport: { width: 360, height: 780 } } },
+    // Interfaz en tres tamaños de pantalla.
+    {
+      name: "movil",
+      testMatch: UI_TESTS,
+      use: { ...devices["Pixel 7"], viewport: { width: 360, height: 780 } },
+    },
     {
       name: "tablet",
-      use: { ...devices["Desktop Chrome"], viewport: { width: 768, height: 1024 } },
+      testMatch: UI_TESTS,
+      use: { ...desktop, viewport: { width: 768, height: 1024 } },
     },
     {
       name: "escritorio",
-      use: { ...devices["Desktop Chrome"], viewport: { width: 1280, height: 800 } },
+      testMatch: UI_TESTS,
+      use: { ...desktop, viewport: { width: 1280, height: 800 } },
+    },
+    // Flujos con base de datos (Supabase local): una sola vez, en escritorio.
+    {
+      name: "flujos",
+      testMatch: FLOW_TESTS,
+      use: { ...desktop, viewport: { width: 1280, height: 800 } },
     },
   ],
   // Sin E2E_BASE_URL se prueba la build de producción local (ejecutar `pnpm build` antes).

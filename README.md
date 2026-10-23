@@ -9,10 +9,18 @@ Aplicación web (PWA) de gestión operativa para Grupo Pecuario: inventario, ven
 
 ## Estado
 
-Bloque 1 (fundamentos técnicos) en curso: shell responsive, sistema de diseño, base de datos con bitácora de acciones, pruebas y CI. Los módulos de negocio se agregan por bloques según el roadmap.
+- **Bloque 1** (fundamentos técnicos): completo.
+- **Bloque 2** (autenticación, empresa, sucursales, usuarios, roles, RLS, bitácora): completo y probado contra Supabase local; pendiente de conectar al proyecto remoto.
 
-## Despliegue (Vercel)
+Los módulos de negocio se agregan por bloques según el roadmap.
 
-1. Importar el repositorio en Vercel (framework: Next.js; gestor: pnpm, detectado por `packageManager`).
-2. Configurar las variables de [`.env.example`](.env.example) en _Production_ y _Preview_.
-3. Las migraciones de base de datos **no** las aplica Vercel: las aplica el workflow `Migraciones` de GitHub Actions (ver `CONTRIBUTING.md`).
+## Despliegue
+
+Ver [`docs/despliegue.md`](docs/despliegue.md): proyecto Supabase, migraciones, configuración de Auth y correos, primer propietario y variables de Vercel.
+
+## Desarrollo local
+
+```bash
+pnpm db:start   # Supabase local con usuarios de prueba (supabase/seed.sql, contraseña Control360dev)
+pnpm dev
+```

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/validation";
 
 /**
  * Variables públicas (se incrustan en el bundle del cliente).

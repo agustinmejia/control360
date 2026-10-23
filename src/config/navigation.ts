@@ -13,6 +13,7 @@ import {
   Wallet,
   type LucideIcon,
 } from "lucide-react";
+import type { Permission } from "@/modules/access/roles";
 
 export type NavItem = {
   slug: string;
@@ -25,6 +26,8 @@ export type NavItem = {
   available: boolean;
   /** Aparece en la barra inferior del móvil. */
   mobile?: boolean;
+  /** Permiso necesario para verlo (sin permiso: visible para todos los usuarios activos). */
+  permission?: Permission;
 };
 
 export const NAV_ITEMS: NavItem[] = [
@@ -129,7 +132,8 @@ export const NAV_ITEMS: NavItem[] = [
     description: "Empresa, sucursales, usuarios y catálogos",
     icon: Settings,
     block: "B2",
-    available: false,
+    available: true,
+    permission: "settings.manage",
   },
 ];
 

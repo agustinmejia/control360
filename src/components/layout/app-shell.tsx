@@ -3,12 +3,23 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { LogOut } from "lucide-react";
 import { MORE_ITEM, NAV_ITEMS, type NavItem } from "@/config/navigation";
+import { ROLE_LABELS, type AppRole } from "@/modules/access/roles";
+import { signOut } from "@/modules/auth/actions";
 import { cn } from "@/lib/ui/cn";
 import { ThemeToggle } from "./theme-toggle";
 
+export type ShellUser = { fullName: string; email: string; role: AppRole };
+
 function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+}
+
+function initials(user: ShellUser) {
+  const source = user.fullName.trim() || user.email;
+  const parts = source.split(/\s+/).filter(Boolean);
+  return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase() || "?";
 }
 
 function SidebarLink({ item, active }: { item: NavItem; active: boolean }) {
@@ -35,11 +46,26 @@ function SidebarLink({ item, active }: { item: NavItem; active: boolean }) {
  * Estructura de la app autenticada:
  * - móvil: cabecera compacta + barra de navegación inferior (al alcance del pulgar);
  * - ≥ 1024 px: barra lateral con todos los módulos.
+ * `allowedSlugs` llega del servidor ya filtrado por los permisos del usuario
+ * (los iconos son componentes y no pueden cruzar del servidor al cliente).
  */
-export function AppShell({ children, companyName }: { children: ReactNode; companyName: string }) {
+export function AppShell({
+  children,
+  companyName,
+  user,
+  allowedSlugs,
+}: {
+  children: ReactNode;
+  companyName: string;
+  user: ShellUser;
+  allowedSlugs: string[];
+}) {
   const pathname = usePathname();
-  const mobileItems = NAV_ITEMS.filter((i) => i.mobile);
-  const moreActive = !mobileItems.some((i) => isActive(pathname, i.href));
+  const items = NAV_ITEMS.filter((item) => allowedSlugs.includes(item.slug));
+  const mobileItems = items.filter((i) => i.mobile);
+  const moreActive =
+    !mobileItems.some((i) => isActive(pathname, i.href)) && !isActive(pathname, "/perfil");
+  const displayName = user.fullName || user.email;
 
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[16rem_1fr]">
@@ -49,20 +75,60 @@ export function AppShell({ children, companyName }: { children: ReactNode; compa
           <p className="text-muted text-sm">{companyName}</p>
         </div>
         <nav aria-label="Navegación principal" className="flex flex-1 flex-col gap-1">
-          {NAV_ITEMS.map((item) => (
+          {items.map((item) => (
             <SidebarLink key={item.slug} item={item} active={isActive(pathname, item.href)} />
           ))}
         </nav>
-        <ThemeToggle withLabel />
+        <div className="border-border mt-2 flex flex-col gap-1 border-t pt-3">
+          <Link
+            href="/perfil"
+            aria-current={isActive(pathname, "/perfil") ? "page" : undefined}
+            className="hover:bg-surface-muted flex min-h-12 items-center gap-3 rounded-lg px-3"
+          >
+            <span
+              className="bg-primary-soft text-primary flex size-9 items-center justify-center rounded-full text-sm font-bold"
+              aria-hidden
+            >
+              {initials(user)}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate font-semibold">{displayName}</span>
+              <span className="text-muted block text-xs">{ROLE_LABELS[user.role]}</span>
+            </span>
+          </Link>
+          <div className="flex items-center justify-between">
+            <ThemeToggle />
+            <form action={signOut}>
+              <button
+                type="submit"
+                className="text-muted hover:bg-surface-muted hover:text-foreground inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm"
+              >
+                <LogOut className="size-4" aria-hidden />
+                Cerrar sesión
+              </button>
+            </form>
+          </div>
+        </div>
       </aside>
 
       <div className="flex min-w-0 flex-col">
-        <header className="no-print border-border bg-surface/95 sticky top-0 z-30 flex items-center justify-between border-b px-4 pt-[env(safe-area-inset-top)] backdrop-blur lg:hidden">
-          <div className="py-2">
+        <header className="no-print border-border bg-surface/95 sticky top-0 z-30 flex items-center justify-between gap-2 border-b px-4 pt-[env(safe-area-inset-top)] backdrop-blur lg:hidden">
+          <div className="min-w-0 py-2">
             <p className="text-lg leading-tight font-extrabold tracking-tight">Control360</p>
-            <p className="text-muted text-xs">{companyName}</p>
+            <p className="text-muted truncate text-xs">{companyName}</p>
           </div>
-          <ThemeToggle />
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+            <Link
+              href="/perfil"
+              aria-label={`Mi perfil (${displayName})`}
+              className="flex size-11 items-center justify-center"
+            >
+              <span className="bg-primary-soft text-primary flex size-9 items-center justify-center rounded-full text-sm font-bold">
+                {initials(user)}
+              </span>
+            </Link>
+          </div>
         </header>
 
         <main
